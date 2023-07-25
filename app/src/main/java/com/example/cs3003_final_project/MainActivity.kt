@@ -45,6 +45,9 @@ class MainActivity : AppCompatActivity() {
                 runningStopwatch1 = true
                 startStopwatch1()
             }
+            val noCoroutines = NoCoroutines()
+            noCoroutines.run()
+
         }
 
         stopButton1.setOnClickListener {
@@ -52,6 +55,7 @@ class MainActivity : AppCompatActivity() {
                 runningStopwatch1 = false
                 stopwatchJobStopwatch1?.cancel()
             }
+
         }
 
         resetButton1.setOnClickListener {
@@ -66,6 +70,10 @@ class MainActivity : AppCompatActivity() {
                 startTimeStopwatch2 = System.currentTimeMillis() - elapsedTimeStopwatch2
                 runningStopwatch2 = true
                 startStopwatch2()
+            }
+            val coroutines = Coroutines()
+            runBlocking {
+                coroutines.main()
             }
         }
 

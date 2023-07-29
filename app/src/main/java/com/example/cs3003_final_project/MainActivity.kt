@@ -46,7 +46,7 @@ class MainActivity : AppCompatActivity() {
                 startStopwatch1()
             }
             val noCoroutines = NoCoroutines()
-            noCoroutines.run()
+            noCoroutines.main()
 
         }
 

@@ -1,24 +1,31 @@
 package com.example.cs3003_final_project
 
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
-import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.runBlocking
+import kotlin.system.measureTimeMillis
 
 class Coroutines {
-    suspend fun main() = coroutineScope {
-        val startTime = System.currentTimeMillis()
-        val result = async { longRunningTask() }
-        val endTime = System.currentTimeMillis()
-        println("Result: ${result.await()}")
-        println("Time taken: ${endTime - startTime}ms")
+
+    private suspend fun doWork(): Int {
+        delay(1000L)
+        return 42
+    }
+    fun main() {
+        // With coroutines
+        println("\nWith coroutines:")
+        val time2 = measureTimeMillis {
+            runBlocking {
+                val results = List(10) {
+                    async { doWork() }
+                }
+                results.awaitAll()
+            }
+        }
+        println("Elapsed time: $time2 ms")
     }
 
-    private suspend fun longRunningTask(): Int = withContext(Dispatchers.IO) {
-        // Simulate a long running task
-        delay(5000)
-        return@withContext 42
-    }
 
 }
+
